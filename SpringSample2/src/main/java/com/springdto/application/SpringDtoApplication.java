@@ -11,32 +11,45 @@ import java.util.List;
 @Slf4j
 public class SpringDtoApplication {
     public static void main(String[] args) {
+        // Load Spring context
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
 
+        // Log the loaded bean definitions
+        Arrays.stream(context.getBeanDefinitionNames()).forEach(beanName -> log.info("Loaded Bean: {}", beanName));
+
+        // Get EmployeeController bean
         EmployeeController employeeController = context.getBean(EmployeeController.class);
 
+        // Create and add new employees
         EmployeeDTO newEmployee = new EmployeeDTO();
         newEmployee.setId(1L);
         newEmployee.setFullName("John Doe");
         newEmployee.setAge(30);
         employeeController.addEmployee(newEmployee);
+        log.info("Added Employee: {}", newEmployee);
 
         EmployeeDTO newEmployee2 = new EmployeeDTO();
         newEmployee2.setId(2L);
         newEmployee2.setFullName("Jane Smith");
         newEmployee2.setAge(25);
         employeeController.addEmployee(newEmployee2);
+        log.info("Added Employee: {}", newEmployee2);
 
-        // Get all employees
+        // Get all employees and log their details
         List<EmployeeDTO> allEmployees = employeeController.getAllEmployees();
-        for (EmployeeDTO employee : allEmployees)
+        for (EmployeeDTO employee : allEmployees) {
             log.info("Employee: {}, Age: {}", employee.getFullName(), employee.getAge());
+        }
 
-        // Get an employee by ID
+        // Get an employee by ID and log the result
         EmployeeDTO employee = employeeController.getEmployeeById(1L);
         if (employee != null) {
             log.info("Found Employee: {}, Age: {}", employee.getFullName(), employee.getAge());
+        } else {
+            log.warn("Employee with ID 1 not found");
         }
+
+        // Close the context
+        context.close();
     }
 }

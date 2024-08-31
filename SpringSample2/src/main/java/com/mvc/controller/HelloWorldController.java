@@ -2,14 +2,15 @@ package com.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/hello")
+@RequestMapping(value = "/hello")
 public class HelloWorldController {
 
     // Define a constant for the view name
@@ -19,19 +20,19 @@ public class HelloWorldController {
     private static final String HELLO_WORLD_FORM_VIEW = "helloworld-form";
 
     // Need a controller method to show initial HTML Form
-    @RequestMapping(value = "/showForm", method = RequestMethod.GET)
+    @GetMapping("/showForm")
     public String showForm() {
         return HELLO_WORLD_FORM_VIEW;
     }
 
     // Need a controller method to process the HTML form
-    @RequestMapping(value = "/processForm", method = RequestMethod.POST)
+    @PostMapping("/processForm")
     public String processForm() {
         return HELLO_WORLD_VIEW;
     }
 
     // New controller method to read form data and add data to the model
-    @RequestMapping(value = "/processFormVersionTwo", method = RequestMethod.POST)
+    @PostMapping("/processFormVersionTwo")
     public String letsShotDude(HttpServletRequest request, Model model) {
         // Read the request parameter from the HTML form
         String theName = request.getParameter("studentName");
@@ -44,7 +45,7 @@ public class HelloWorldController {
         return HELLO_WORLD_VIEW;
     }
 
-    @RequestMapping(value = "/processFormVersionThree", method = RequestMethod.POST)
+    @PostMapping("/processFormVersionThree")
     public String processFormVersionThree(
             @RequestParam("studentName") String theName,
             Model model) {
