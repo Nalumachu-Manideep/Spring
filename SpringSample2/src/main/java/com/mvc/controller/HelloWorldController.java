@@ -3,63 +3,58 @@ package com.mvc.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-
 
 @Controller
 @RequestMapping("/hello")
 public class HelloWorldController {
 
-    //need a controller method to show initial HTML Form
-    @RequestMapping(value = "/showForm")
-    public String showForm(){
-        return "helloworld-form";
+    // Define a constant for the view name
+    private static final String HELLO_WORLD_VIEW = "helloworld";
+
+    // Define a constant for the form name
+    private static final String HELLO_WORLD_FORM_VIEW = "helloworld-form";
+
+    // Need a controller method to show initial HTML Form
+    @RequestMapping(value = "/showForm", method = RequestMethod.GET)
+    public String showForm() {
+        return HELLO_WORLD_FORM_VIEW;
     }
 
-    //need a controller method to process the HTML form
-    @RequestMapping(value = "/processForm")
-    public String processForm(){
-        return "helloworld";
+    // Need a controller method to process the HTML form
+    @RequestMapping(value = "/processForm", method = RequestMethod.POST)
+    public String processForm() {
+        return HELLO_WORLD_VIEW;
     }
 
-    //new controller method to read form data and add data to the model
-    @RequestMapping(value = "/processFormVersionTwo")
-    public String letsShotDude(HttpServletRequest request, Model model){
-        //read the request parameter from the HTML form
-        String theName=request.getParameter("studentName");
-        //convert the data to all caps
-        theName=theName.toUpperCase();
-        //create the message
-        String result ="Yo! "+theName;
-        //add the message to model
-        model.addAttribute("message",result);
-        return "helloworld";
+    // New controller method to read form data and add data to the model
+    @RequestMapping(value = "/processFormVersionTwo", method = RequestMethod.POST)
+    public String letsShotDude(HttpServletRequest request, Model model) {
+        // Read the request parameter from the HTML form
+        String theName = request.getParameter("studentName");
+        // Convert the data to all caps
+        theName = theName.toUpperCase();
+        // Create the message
+        String result = "Yo! " + theName;
+        // Add the message to model
+        model.addAttribute("message", result);
+        return HELLO_WORLD_VIEW;
     }
 
-    //we can use @RequestParam to extract query parameters, form parameters, and even files from the request.
-    //We can also do @RequestParam(value = “studentName”) or just @RequestParam(“studentName”).
-    //@RequestParam(required = false)--if the parameter isn’t present in the request,then does not through an error
-    //@RequestParam(defaultValue = "NoName") String theName--If we don't provide value,then deafault value is displayed
-    //Mapping All Parameters
-    /*public String updateFoos(@RequestParam Map<String,String> allParams) {
-            return "Parameters are " + allParams.entrySet();
-        }
-   */
-
-    @RequestMapping(value = "/processFormVersionThree")
+    @RequestMapping(value = "/processFormVersionThree", method = RequestMethod.POST)
     public String processFormVersionThree(
             @RequestParam("studentName") String theName,
-            Model model){
+            Model model) {
 
-        //convert the data to all caps
-        theName=theName.toUpperCase();
-        //create the message
-        String result ="Hello! "+theName;
-        //add the message to model
-        model.addAttribute("message",result);
-        return "helloworld";
+        // Convert the data to all caps
+        theName = theName.toUpperCase();
+        // Create the message
+        String result = "Hello! " + theName;
+        // Add the message to model
+        model.addAttribute("message", result);
+        return HELLO_WORLD_VIEW;
     }
-
 }

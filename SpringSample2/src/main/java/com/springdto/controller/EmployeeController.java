@@ -2,9 +2,10 @@ package com.springdto.controller;
 
 import com.springdto.dto.EmployeeDTO;
 import com.springdto.service.EmployeeServiceImpl;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
-
+@Controller
 public class EmployeeController {
 
     private EmployeeServiceImpl employeeService;

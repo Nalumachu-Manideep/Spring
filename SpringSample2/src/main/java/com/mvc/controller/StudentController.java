@@ -9,6 +9,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
@@ -26,7 +27,7 @@ public class StudentController {
         dataBinder.registerCustomEditor(String.class,stringTrimmerEditor);
     }
 
-    @RequestMapping("/showForm")
+    @RequestMapping(value = "/showForm",method = RequestMethod.GET)
     public String showForm(Model model){
 
         //create a student object
@@ -37,7 +38,7 @@ public class StudentController {
 
         return "student-form";
     }
-    @RequestMapping("/processForm")
+    @RequestMapping(value = "/processForm",method = RequestMethod.POST)
     public String processForm(
             @Valid
             @ModelAttribute("student")

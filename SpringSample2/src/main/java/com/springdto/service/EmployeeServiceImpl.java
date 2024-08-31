@@ -5,6 +5,7 @@ import com.springdto.model.Employee;
 import com.springdto.repositary.EmployeeRepositary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Component
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepositary employeeRepositary;

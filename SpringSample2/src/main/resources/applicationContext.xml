@@ -9,6 +9,9 @@
     <!--load the properties file:sport.properties -->
     <context:property-placeholder location="classpath:sport.properties"/>
 
+    <!-- Enable component scanning to detect @Component, @Service, @Controller, etc. -->
+    <context:component-scan base-package="com.springdto"/>
+
     <!-- bean definitions here -->
     <bean id="myFortuneService"
           class="com.springdemo.HappyFortuneService">
@@ -36,7 +39,7 @@
         <constructor-arg ref="employeeRepository" />
     </bean>
 
-    <bean id="bookController" class="com.springdto.controller.EmployeeController">
+    <bean id="employeeController" class="com.springdto.controller.EmployeeController">
         <constructor-arg ref="emloyeeService" />
     </bean>
 
